@@ -2,6 +2,7 @@ import torch
 from typing import Union, List, Optional, Dict, Any, Tuple
 from diffusers.models.unet_2d_condition import UNet2DConditionOutput
 
+
 def unet_forward_XTI(self,
         sample: torch.FloatTensor,
         timestep: Union[torch.Tensor, float, int],

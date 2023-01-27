@@ -13,7 +13,7 @@ from library.custom_logging import setup_logging
 # Set up logging
 log = setup_logging()
 
-PYTHON = 'python3' if os.name == 'posix' else './venv/Scripts/python.exe'
+PYTHON = f". /venv/bin/activate; python "
 folder_symbol = '\U0001f4c2'  # 📂
 refresh_symbol = '\U0001f504'  # 🔄
 save_style_symbol = '\U0001f4be'  # 💾
@@ -33,11 +33,8 @@ def verify_lora(
         msgbox('The provided model A is not a file')
         return
 
-    run_cmd = [
-        PYTHON,
-        os.path.join('networks', 'check_lora_weights.py'),
-        f'{lora_model}',
-    ]
+    run_cmd = f'{PYTHON} "networks/check_lora_weights.py"'
+    run_cmd += f' {lora_model}'
 
     log.info(' '.join(run_cmd))
 

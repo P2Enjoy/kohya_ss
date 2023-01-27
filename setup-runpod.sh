@@ -12,14 +12,14 @@ echo "Installing required libcudnn release 8.7.0.84-1..."
 apt install -y libcudnn8=8.7.0.84-1+cuda11.8 libcudnn8-dev=8.7.0.84-1+cuda11.8 --allow-change-held-packages
 
 # Check if the venv folder doesn't exist
-if [ ! -d "$SCRIPT_DIR/venv" ]; then
+if [ ! -d "/venv" ]; then
     echo "Creating venv..."
-    python3 -m venv "$SCRIPT_DIR/venv"
+    python3 -m venv "/venv"
 fi
 
 # Activate the virtual environment
 echo "Activating venv..."
-source "$SCRIPT_DIR/venv/bin/activate" || exit 1
+source "/venv/bin/activate" || exit 1
 
 # Run setup_linux.py script with platform requirements
 echo "Running setup_linux.py..."

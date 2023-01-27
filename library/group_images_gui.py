@@ -9,7 +9,8 @@ from library.custom_logging import setup_logging
 # Set up logging
 log = setup_logging()
 
-PYTHON = 'python3' if os.name == 'posix' else './venv/Scripts/python.exe'
+PYTHON = f". /venv/bin/activate; python "
+
 
 def group_images(
     input_folder,

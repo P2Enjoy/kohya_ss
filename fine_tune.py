@@ -178,6 +178,7 @@ def train(args):
         if args.gradient_checkpointing:
             text_encoder.gradient_checkpointing_enable()
             text_encoder.train()  # required for gradient_checkpointing
+            text_encoder.text_model.embeddings.requires_grad_(True)
         else:
             text_encoder.eval()
 

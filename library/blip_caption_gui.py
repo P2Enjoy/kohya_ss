@@ -8,7 +8,7 @@ from library.custom_logging import setup_logging
 # Set up logging
 log = setup_logging()
 
-PYTHON = 'python3' if os.name == 'posix' else './venv/Scripts/python.exe'
+PYTHON = f". /venv/bin/activate; python "
 
 
 def caption_images(
@@ -55,7 +55,7 @@ def caption_images(
     if os.name == 'posix':
         os.system(run_cmd)
     else:
-        subprocess.run(run_cmd)
+        subprocess.run(run_cmd, shell=True)
 
     # Add prefix and postfix
     add_pre_postfix(

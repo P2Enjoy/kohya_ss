@@ -5,9 +5,12 @@ from .common_gui import get_folder_path, add_pre_postfix
 import os
 
 from library.custom_logging import setup_logging
+ACCELERATE = f". /venv/bin/activate; accelerate "
+
 
 # Set up logging
 log = setup_logging()
+
 
 
 def caption_images(
@@ -36,7 +39,7 @@ def caption_images(
         return
 
     log.info(f'Captioning files in {train_data_dir}...')
-    run_cmd = f'accelerate launch "./finetune/tag_images_by_wd14_tagger.py"'
+    run_cmd = f'{ACCELERATE} launch "./finetune/tag_images_by_wd14_tagger.py"'
     run_cmd += f' --batch_size={int(batch_size)}'
     run_cmd += f' --general_threshold={general_threshold}'
     run_cmd += f' --character_threshold={character_threshold}'
@@ -65,7 +68,7 @@ def caption_images(
     if os.name == 'posix':
         os.system(run_cmd)
     else:
-        subprocess.run(run_cmd)
+        subprocess.run(run_cmd, shell=True)
 
     # Add prefix and postfix
     add_pre_postfix(
@@ -108,7 +111,7 @@ def gradio_wd14_caption_gui_tab(headless=False):
 
             caption_extension = gr.Textbox(
                 label='Caption file extension',
-                placeholder='Extention for caption file. eg: .caption, .txt',
+                placeholder='Extension for caption file. eg: .caption, .txt',
                 value='.txt',
                 interactive=True,
             )

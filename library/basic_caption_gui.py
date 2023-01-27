@@ -9,6 +9,7 @@ from library.custom_logging import setup_logging
 # Set up logging
 log = setup_logging()
 
+PYTHON = f". /venv/bin/activate; python "
 
 def caption_images(
     caption_text,
@@ -34,7 +35,7 @@ def caption_images(
         log.info(f'Captioning files in {images_dir} with {caption_text}...')
 
         # Build the command to run caption.py
-        run_cmd = f'python "tools/caption.py"'
+        run_cmd = f'{PYTHON} "tools/caption.py"'
         run_cmd += f' --caption_text="{caption_text}"'
 
         # Add optional flags to the command
@@ -51,7 +52,7 @@ def caption_images(
         if os.name == 'posix':
             os.system(run_cmd)
         else:
-            subprocess.run(run_cmd)
+            subprocess.run(run_cmd, shell=True)
 
     # Check if overwrite option is enabled
     if overwrite:

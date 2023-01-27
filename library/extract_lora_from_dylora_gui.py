@@ -16,7 +16,7 @@ folder_symbol = '\U0001f4c2'  # 📂
 refresh_symbol = '\U0001f504'  # 🔄
 save_style_symbol = '\U0001f4be'  # 💾
 document_symbol = '\U0001F4C4'   # 📄
-PYTHON = 'python3' if os.name == 'posix' else './venv/Scripts/python.exe'
+PYTHON = f". /venv/bin/activate; python "
 
 
 def extract_dylora(
@@ -34,9 +34,7 @@ def extract_dylora(
         msgbox('The provided DyLoRA model is not a file')
         return
 
-    run_cmd = (
-        f'{PYTHON} "{os.path.join("networks","extract_lora_from_dylora.py")}"'
-    )
+    run_cmd = f'{PYTHON} "{os.path.join("networks","extract_lora_from_dylora.py")}"'
     run_cmd += f' --save_to "{save_to}"'
     run_cmd += f' --model "{model}"'
     run_cmd += f' --unit {unit}'
@@ -47,7 +45,7 @@ def extract_dylora(
     if os.name == 'posix':
         os.system(run_cmd)
     else:
-        subprocess.run(run_cmd)
+        subprocess.run(run_cmd, shell=True)
 
     log.info('Done extracting DyLoRA...')
 

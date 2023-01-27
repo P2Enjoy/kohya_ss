@@ -254,14 +254,15 @@ def train(args):
     loss_list = []
     loss_total = 0.0
     for epoch in range(num_train_epochs):
-        print(f"\nepoch {epoch+1}/{num_train_epochs}")
-        current_epoch.value = epoch + 1
+      print(f"\nepoch {epoch+1}/{num_train_epochs}")
+      current_epoch.value = epoch + 1
 
-        # 指定したステップ数までText Encoderを学習する：epoch最初の状態
-        unet.train()
-        # train==True is required to enable gradient_checkpointing
-        if args.gradient_checkpointing or global_step < args.stop_text_encoder_training:
-            text_encoder.train()
+      # 指定したステップ数までText Encoderを学習する：epoch最初の状態
+      unet.train()
+      # train==True is required to enable gradient_checkpointing
+      if args.gradient_checkpointing or global_step < args.stop_text_encoder_training:
+        text_encoder.train()
+        text_encoder.text_model.embeddings.requires_grad_(True)
 
         for step, batch in enumerate(train_dataloader):
             current_step.value = global_step

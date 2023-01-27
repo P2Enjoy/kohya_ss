@@ -10,7 +10,7 @@ from library.custom_logging import setup_logging
 log = setup_logging()
 
 tensorboard_proc = None   # I know... bad but heh
-TENSORBOARD = 'tensorboard' if os.name == 'posix' else 'tensorboard.exe'
+#TENSORBOARD = 'tensorboard' if os.name == 'posix' else 'tensorboard.exe'
 
 
 def start_tensorboard(logging_dir):
@@ -21,7 +21,8 @@ def start_tensorboard(logging_dir):
         msgbox(msg='Error: log folder is empty')
         return
 
-    run_cmd = [f'{TENSORBOARD}', '--logdir', f'{logging_dir}']
+    run_cmd = f". /venv/bin/activate; "
+    run_cmd += [f'tensorboard', '--logdir', f'{logging_dir}']
 
     log.info(run_cmd)
     if tensorboard_proc is not None:

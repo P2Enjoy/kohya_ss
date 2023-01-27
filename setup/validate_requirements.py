@@ -23,13 +23,7 @@ log = setup_logging()
 
 def check_torch():
     # Check for nVidia toolkit or AMD toolkit
-    if shutil.which('nvidia-smi') is not None or os.path.exists(
-        os.path.join(
-            os.environ.get('SystemRoot') or r'C:\Windows',
-            'System32',
-            'nvidia-smi.exe',
-        )
-    ):
+    if shutil.which('nvidia-smi') is not None:
         log.info('nVidia toolkit detected')
     elif shutil.which('rocminfo') is not None or os.path.exists(
         '/opt/rocm/bin/rocminfo'

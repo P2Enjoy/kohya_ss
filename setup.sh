@@ -186,9 +186,9 @@ install_python_dependencies() {
   echo "Switching to virtual Python environment."
   if ! inDocker; then
     if command -v python3.10 >/dev/null; then
-      python3.10 -m venv "$DIR/venv"
+      python3.10 -m venv "/venv"
     elif command -v python3 >/dev/null; then
-      python3 -m venv "$DIR/venv"
+      python3 -m venv "/venv"
     else
       echo "Valid python3 or python3.10 binary not found."
       echo "Cannot proceed with the python steps."
@@ -196,7 +196,7 @@ install_python_dependencies() {
     fi
 
     # Activate the virtual environment
-    source "$DIR/venv/bin/activate"
+    source "/venv/bin/activate"
   fi
 
   case "$OSTYPE" in
@@ -363,7 +363,7 @@ Script directory is ${SCRIPT_DIR}." >&5
 
 # This must be set after the getopts loop to account for $DIR changes.
 PARENT_DIR="$(dirname "${DIR}")"
-VENV_DIR="$DIR/venv"
+VENV_DIR="/venv"
 
 if [ -w "$PARENT_DIR" ] && [ ! -d "$DIR" ]; then
   echo "Creating install folder ${DIR}."
